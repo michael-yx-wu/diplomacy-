@@ -5,6 +5,7 @@ from header_tableau_materials import *
 from header_items import *
 from module_constants import *
 
+from compiler import *
 ####################################################################################################################
 #  Each tableau material contains the following fields:
 #  1) Tableau id (string): used for referencing tableaux in other files. The prefix tab_ is automatically added before each tableau-id.
@@ -18,7 +19,7 @@ from module_constants import *
 #  9) Tableau mesh max y (int): divided by 1000 and used when a mesh is auto-generated using the tableau material
 #  10) Operations block (list): A list of operations. See header_operations.py for reference.
 #     The operations block is executed when the tableau is activated.
-#
+# 
 ####################################################################################################################
 
 #banner height = 200, width = 85 with wood, 75 without wood
@@ -165,7 +166,7 @@ tableaus = [
        (cur_tableau_add_mesh, "mesh_tableau_mesh_shield_round_3", pos1, 0, 0),
        (cur_tableau_set_camera_parameters, 0, 200, 100, 0, 100000),
        ]),
-
+  
   ("round_shield_4", 0, "sample_shield_matte", 512, 256, 0, 0, 0, 0,
    [
        (store_script_param, ":banner_mesh", 1),
@@ -181,7 +182,7 @@ tableaus = [
        (cur_tableau_add_mesh, "mesh_tableau_mesh_shield_round_4", pos1, 0, 0),
        (cur_tableau_set_camera_parameters, 0, 200, 100, 0, 100000),
        ]),
-
+  
   ("round_shield_5", 0, "sample_shield_matte", 512, 256, 0, 0, 0, 0,
    [
        (store_script_param, ":banner_mesh", 1),
@@ -212,7 +213,7 @@ tableaus = [
        (cur_tableau_add_mesh, "mesh_tableau_mesh_shield_small_round_1", pos1, 0, 0),
        (cur_tableau_set_camera_parameters, 0, 200, 100, 0, 100000),
        ]),
-
+  
   ("small_round_shield_2", 0, "sample_shield_small_round_2", 512, 256, 0, 0, 0, 0,
    [
        (store_script_param, ":banner_mesh", 1),
@@ -243,7 +244,7 @@ tableaus = [
        (cur_tableau_add_mesh, "mesh_tableau_mesh_shield_small_round_3", pos1, 0, 0),
        (cur_tableau_set_camera_parameters, 0, 200, 100, 0, 100000),
        ]),
-
+  
   ("kite_shield_1", 0, "sample_shield_matte", 512, 512, 0, 0, 0, 0,
    [
        (store_script_param, ":banner_mesh", 1),
@@ -391,7 +392,7 @@ tableaus = [
        (cur_tableau_add_mesh, "mesh_tableau_mesh_heraldic_armor_a", pos1, 0, 0),
        (cur_tableau_set_camera_parameters, 0, 200, 200, 0, 100000),
        ]),
-
+  
   ("heraldic_armor_b", 0, "sample_heraldic_armor_b", 512, 512, 0, 0, 0, 0,
    [
        (store_script_param, ":banner_mesh", 1),
@@ -414,7 +415,7 @@ tableaus = [
        (cur_tableau_add_mesh, "mesh_tableau_mesh_heraldic_armor_b", pos1, 0, 0),
        (cur_tableau_set_camera_parameters, 0, 200, 200, 0, 100000),
        ]),
-
+  
   ("heraldic_armor_c", 0, "sample_heraldic_armor_c", 512, 512, 0, 0, 0, 0,
    [
        (store_script_param, ":banner_mesh", 1),
@@ -437,7 +438,7 @@ tableaus = [
        (cur_tableau_add_mesh, "mesh_tableau_mesh_heraldic_armor_c", pos1, 0, 0),
        (cur_tableau_set_camera_parameters, 0, 200, 200, 0, 100000),
        ]),
-
+  
   ("heraldic_armor_d", 0, "sample_heraldic_armor_d", 512, 512, 0, 0, 0, 0,
    [
        (store_script_param, ":banner_mesh", 1),
@@ -494,7 +495,7 @@ tableaus = [
        (cur_tableau_set_ambient_light, 10,11,15),
        (call_script, "script_add_troop_to_cur_tableau_for_character", ":troop_no"),
        ]),
-
+  
   ("troop_inventory_alpha_mask", 0, "mat_troop_portrait_mask", 1024, 1024, 0, 0, 400, 400,
    [
        (store_script_param, ":troop_no", 1),
@@ -513,21 +514,35 @@ tableaus = [
        ]),
 
   ("troop_profile_alpha_mask", 0, "mat_troop_portrait_mask", 1024, 1024, 0, 0, 400, 400,
-   [
-       (store_script_param, ":troop_no", 1),
-       (cur_tableau_set_background_color, 0x00888888),
-       (cur_tableau_set_ambient_light, 10,11,15),
-       (cur_tableau_render_as_alpha_mask),
-       (call_script, "script_add_troop_to_cur_tableau_for_profile", ":troop_no"),
-       ]),
+    [
+        (store_script_param, ":troop_no", 1),
+        (cur_tableau_set_background_color, 0x00888888),
+        (cur_tableau_set_ambient_light, 10,11,15),
+        (cur_tableau_render_as_alpha_mask),
+        #SB : redirect script call
+        (try_begin),
+          (this_or_next|eq, ":troop_no", "trp_multiplayer_profile_troop_male"),
+          (eq, ":troop_no", "trp_multiplayer_profile_troop_female"),
+          (call_script, "script_add_troop_to_cur_tableau_for_profile", ":troop_no"),
+        (else_try),
+          (call_script, "script_add_troop_to_cur_tableau_for_presentation", ":troop_no"),
+        (try_end),
+    ]),
 
   ("troop_profile_color", 0, "mat_troop_portrait_color", 1024, 1024, 0, 0, 400, 400,
-   [
-       (store_script_param, ":troop_no", 1),
-       (cur_tableau_set_background_color, 0xFFF9E7A8),
-       (cur_tableau_set_ambient_light, 10,11,15),
-       (call_script, "script_add_troop_to_cur_tableau_for_profile", ":troop_no"),
-       ]),
+    [
+        (store_script_param, ":troop_no", 1),
+        (cur_tableau_set_background_color, 0xFFF9E7A8),
+        (cur_tableau_set_ambient_light, 10,11,15),
+        #SB : redirect script call
+        (try_begin),
+          (this_or_next|eq, ":troop_no", "trp_multiplayer_profile_troop_male"),
+          (eq, ":troop_no", "trp_multiplayer_profile_troop_female"),
+          (call_script, "script_add_troop_to_cur_tableau_for_profile", ":troop_no"),
+        (else_try),
+          (call_script, "script_add_troop_to_cur_tableau_for_presentation", ":troop_no"),
+        (try_end),
+    ]),
 
 
   ("troop_party_alpha_mask", 0, "mat_troop_portrait_mask", 1024, 1024, 0, 0, 400, 400,
@@ -572,7 +587,7 @@ tableaus = [
        (set_fixed_point_multiplier, 100),
        (cur_tableau_set_background_color, 0x00888888),
        (cur_tableau_set_ambient_light, 10,11,15),
-
+       
        (init_position, pos8),
        (position_set_x, pos8, -210),
        (position_set_y, pos8, 200),
@@ -678,7 +693,7 @@ tableaus = [
        (cur_tableau_set_camera_parameters, 0, 210, 210, 0, 100000),
      (try_end),
      ]),
-
+  
   ("2_factions_mesh", 0, "tableau_with_transparency", 1024, 1024, 0, 0, 200, 200,
    [
      (store_script_param, ":faction_no", 1),
@@ -945,7 +960,7 @@ tableaus = [
 ##     (position_rotate_z, pos5, 180),
 ##     (cur_tableau_set_camera_position, pos5),
 ##     ]),
-
+  
   ("retired_troop_alpha_mask", 0, "mat_troop_portrait_mask", 2048, 2048, 0, 0, 600, 600,
    [
        (store_script_param, ":type", 1),
@@ -979,7 +994,7 @@ tableaus = [
      (position_set_z, pos1, 200),
      (cur_tableau_add_tableau_mesh, "tableau_retired_troop_alpha_mask", ":type", pos1, 0, 0),
      ]),
-
+     
 
   ("coop_companion_select_alpha_mask", 0, "mat_troop_portrait_mask", 1024, 1024, 0, 0, 600, 600,
    [
@@ -1011,6 +1026,7 @@ tableaus = [
        ]),
 
 
+
   ("coop_companion_select_0", 0, "tableau_with_transparency", 1024, 1024, 0, 0, 300, 300,
    [
      (store_script_param, ":troop_no", 1),
@@ -1027,6 +1043,23 @@ tableaus = [
      (position_set_z, pos1, 200),
      (cur_tableau_add_tableau_mesh, "tableau_coop_companion_select_alpha_mask", ":troop_no", pos1, 0, 0),
      ]),
+     
+ #SB : for presentation usage
+  ("dplmc_lord_profile", 0, "tableau_with_transparency", 1024, 1024, 0, 0, 320, 480, [
+    (store_script_param, ":troop_no", 1),
+    (cur_tableau_set_background_color, 0xFF888888),
+    (cur_tableau_set_ambient_light, 10,11,15),
+    (set_fixed_point_multiplier, 100),
+    (cur_tableau_set_camera_parameters, 0, 40, 40, 0, 100000),
 
+    (init_position, pos1),
+    (position_set_z, pos1, 100),
+    (position_set_x, pos1, -20),
+    (position_set_y, pos1, -20),
+    (cur_tableau_add_tableau_mesh, "tableau_troop_profile_color", ":troop_no", pos1, 0, 0),
+    (position_set_z, pos1, 200),
+    (cur_tableau_add_tableau_mesh, "tableau_troop_profile_alpha_mask", ":troop_no", pos1, 0, 0),
+    ]),
 
+  
 ]

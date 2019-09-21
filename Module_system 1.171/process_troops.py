@@ -37,7 +37,11 @@ def save_troops():
 #    inventory_list.append(itm_bolts)
     for inventory_item in inventory_list:
 #      add_tag_use(tag_uses,tag_item,inventory_item)
-      file.write("%d 0 "%inventory_item)
+#SB : allow inventory modifiers
+      if (isinstance(inventory_item,list))|(isinstance(inventory_item,tuple)):
+        file.write("%d %d "%(inventory_item[0],inventory_item[1]<<24))
+      else:
+        file.write("%d 0 "%inventory_item)
     for i in xrange(64 - len(inventory_list)):
       file.write("-1 0 ")
     file.write("\n ")
@@ -48,7 +52,7 @@ def save_troops():
     charisma = ((attrib >> 24)& 0xff)
     starting_level = (attrib >> level_bits) & level_mask
 #    gold = two_to_pow(2 + (attrib >> 12)& 0x0f) * random
-
+    
     file.write(" %d %d %d %d %d\n"%(strength,agility,intelligence,charisma,starting_level))
     wp_word = troop[9]
     for wp in xrange(num_weapon_proficiencies):
@@ -56,14 +60,14 @@ def save_troops():
       file.write(" %d"%wp_level)
       wp_word = wp_word >> 10
     file.write("\n")
-
+      
     skill_array = troop[10]
     for i in xrange(num_skill_words):
       file.write("%d "%((skill_array >> (i * 32)) & 0xffffffff))
     file.write("\n  ")
 
     face_keys = [troop[11],troop[12]]
-
+    
     for fckey in (face_keys):
       word_keys = []
       for word_no in xrange(num_face_numeric_keys):
@@ -72,8 +76,8 @@ def save_troops():
         file.write("%d "%(word_keys[(num_face_numeric_keys -1) - word_no]))
 
     file.write("\n")
-
-
+      
+        
 
  #     word2 = (fckey >> 64) & 0xFFFFFFFFFFFFFFFF
  #     word3 = (fckey >> 128) & 0xFFFFFFFFFFFFFFFF
@@ -85,8 +89,8 @@ def save_troops():
 #      file.write("%d "%(fckey))
 #    for i in xrange(4 - len(face_keys)):
 #      file.write("0 ")
-
-
+      
+    
   file.close()
 
 def two_to_pow(x):
