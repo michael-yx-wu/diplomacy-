@@ -1,4 +1,8 @@
-@echo off
+#!/usr/bin/env bash
+
+rm -r ../Diplomacy
+mkdir -p ../Diplomacy && cp -R ../Native ../Diplomacy
+
 python process_init.py
 python process_global_variables.py
 python process_strings.py
@@ -28,10 +32,4 @@ python process_simple_triggers.py
 python process_dialogs.py
 python process_global_variables_unused.py
 python process_postfx.py
-@del *.pyc
-echo.
-echo ______________________________
-echo.
-echo Script processing has ended.
-echo Press any key to exit. . .
-pause>nul
+rm *.pyc
