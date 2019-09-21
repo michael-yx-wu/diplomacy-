@@ -22,7 +22,7 @@ fkf_point_up          = 0x00020000 #uses auto-generated point-up(quad) geometry 
 fkf_align_with_ground = 0x00040000 #align the flora object with the ground normal
 fkf_grass             = 0x00080000 #is grass
 fkf_on_green_ground   = 0x00100000 #populate this flora on green ground
-fkf_rock              = 0x00200000 #is rock 
+fkf_rock              = 0x00200000 #is rock
 fkf_tree              = 0x00400000 #is tree -> note that if you set this parameter, you should pass additional alternative tree definitions
 fkf_snowy             = 0x00800000
 fkf_guarantee         = 0x01000000
@@ -52,7 +52,7 @@ fauna_kinds = [
   ("grass_bush_j",fkf_grass|fkf_align_with_ground|fkf_steppe|fkf_steppe_forest|fkf_plain|fkf_plain_forest|density(400),[["grass_bush_j01","0"],["grass_bush_j02","0"]]),
   ("grass_bush_k",fkf_grass|fkf_align_with_ground|fkf_plain|fkf_plain_forest|density(400),[["grass_bush_k01","0"],["grass_bush_k02","0"]]),
   ("grass_bush_l",fkf_align_with_ground|fkf_plain|fkf_plain_forest|density(50),[["grass_bush_l01","0"],["grass_bush_l02","0"]]),
-  
+
   ("thorn_a",fkf_align_with_ground|fkf_plain|fkf_plain_forest|density(150),[["thorn_a","0"],["thorn_b","0"],["thorn_c","0"],["thorn_d","0"]]),
 
   ("basak",fkf_plain|fkf_plain_forest|fkf_steppe|fkf_steppe_forest|density(70),[["basak","0"]]),
@@ -132,10 +132,10 @@ fauna_kinds = [
   ("tree_e",fkf_plain|fkf_plain_forest|fkf_steppe|fkf_steppe_forest|fkf_tree|density(4),[["tree_e_1","bo_tree_e_1",("0","0")],["tree_e_2","bo_tree_e_2",("0","0")],["tree_e_3","bo_tree_e_3",("0","0")]]),
   ("tree_f",fkf_plain|fkf_plain_forest|fkf_steppe|fkf_steppe_forest|fkf_tree|density(4),[["tree_f_1","bo_tree_f_1",("0","0")],["tree_f_2","bo_tree_f_1",("0","0")],["tree_f_3","bo_tree_f_1",("0","0")]]),
   ("grape_vineyard",density(0),[("grape_vineyard","bo_grape_vineyard")]),
-  ("grape_vineyard_stake",density(0),[("grape_vineyard_stake","bo_grape_vineyard_stake")]),  
-  
+  ("grape_vineyard_stake",density(0),[("grape_vineyard_stake","bo_grape_vineyard_stake")]),
+
   ("wheat",fkf_plain|fkf_plain_forest|fkf_steppe|fkf_steppe_forest|density(4),[["wheat_a","0"],["wheat_b","0"],["wheat_c","0"],["wheat_d","0"]]),
-  
+
   ("valleyRock_rounded",fkf_rock|density(5),[["valleyRock_rounded_1","bo_valleyRock_rounded_1"],["valleyRock_rounded_2","bo_valleyRock_rounded_2"],["valleyRock_rounded_3","bo_valleyRock_rounded_3"],["valleyRock_rounded_4","bo_valleyRock_rounded_4"]]),
   ("valleyRock_flat",fkf_rock|density(5),[["valleyRock_flat_1","bo_valleyRock_flat_1"],["valleyRock_flat_2","bo_valleyRock_flat_2"],["valleyRock_flat_3","bo_valleyRock_flat_3"],["valleyRock_flat_4","bo_valleyRock_flat_4"],["valleyRock_flat_5","bo_valleyRock_flat_5"],["valleyRock_flat_6","bo_valleyRock_flat_6"]]),
   ("valleyRock_flatRounded_small",fkf_rock|density(5),[["valleyRock_flatRounded_small_1","bo_valleyRock_flatRounded_small_1"],["valleyRock_flatRounded_small_2","bo_valleyRock_flatRounded_small_2"],["valleyRock_flatRounded_small_3","bo_valleyRock_flatRounded_small_3"]]),
