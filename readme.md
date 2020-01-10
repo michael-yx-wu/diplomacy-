@@ -1,4 +1,4 @@
-# Diplomacy+
+# Diplomacy+ [![CircleCI](https://circleci.com/gh/michael-yx-wu/diplomacy-plus.svg?style=svg)](https://circleci.com/gh/michael-yx-wu/diplomacy-plus)
 
 ## Compilation
 
