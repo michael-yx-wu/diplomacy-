@@ -1,4 +1,4 @@
-﻿import sys
+import sys
 sys.dont_write_bytecode = True
 
 from traceback import format_exc as formatted_exception, extract_stack
