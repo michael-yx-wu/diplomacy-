@@ -153,7 +153,7 @@ class VARIABLE(object):
 		else:
 			self.value = value
 		self.is_static = static
-   
+
 	def __add__(self, other):    return VARIABLE(operands = [self, other], operation = '+')
 	def __sub__(self, other):    return VARIABLE(operands = [self, other], operation = '-')
 	def __mul__(self, other):    return VARIABLE(operands = [self, other], operation = '*')
@@ -885,7 +885,7 @@ def allocate_quick_strings():
 		raise MSException('failed to allocate quick strings', *e.args)
 	except Exception, e:
 		raise MSException('failed to allocate quick strings', e.message)
-		
+
 def allocate_global_variables(enforce_sgc = True):
 	max_global_index = 0
 	globals_list = []
