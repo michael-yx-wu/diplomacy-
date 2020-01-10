@@ -32,7 +32,7 @@ jobs:
           name: build
           command: |
             . ENV/bin/activate
-            cd Module_system 1.171
+            cd Module_system\ 1.171
             ./build_module.sh
 
       - store_artifacts:
