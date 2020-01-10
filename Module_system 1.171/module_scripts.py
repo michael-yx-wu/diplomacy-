@@ -92,7 +92,7 @@ scripts = [
 
       #Warband changes begin -- set this early
       (try_for_range, ":npc", active_npcs_including_player_begin, kingdom_ladies_end), #SB : range
-        
+
         (try_begin),
           (eq, ":npc", active_npcs_including_player_begin),
           (assign, ":npc", "trp_player"),
@@ -3325,7 +3325,7 @@ scripts = [
          # (else_try), #TODO SB : dplmc messenger ack
            # (party_slot_eq, "$g_encountered_party", slot_party_type, spt_messenger),
            # (jump_to_menu, "mnu_dplmc_messenger"),
-         # (else_try), #SB : dplmc messenger 
+         # (else_try), #SB : dplmc messenger
            # (party_slot_eq, "$g_encountered_party", slot_party_type, spt_scout),
            # (jump_to_menu, "mnu_dplmc_scout"),
          (else_try),
@@ -3693,7 +3693,7 @@ scripts = [
                 (store_skill_level, ":lvl", ":leader_troop_id"),
                 (val_sub, ":rand", ":lvl"), #SB : small bonus chance for capture
                 (ge, ":rand", hero_escape_after_defeat_chance),
-                
+
                 (party_add_prisoners, ":nonempty_winner_party", ":cur_troop_id", 1),
                 (gt, reg0, 0),
                 #(troop_set_slot, ":cur_troop_id", slot_troop_is_prisoner, 1),
@@ -12185,23 +12185,23 @@ scripts = [
           (eq, ":event_type", multiplayer_event_show_server_message),
           (display_message, "str_server_s0", 0xFFFF6666),
         #INVASION MODE START
-        (else_try), 
+        (else_try),
           (eq, ":event_type", multiplayer_event_return_set_bot_selection),
           (store_script_param, ":slot_no", 3),
           (store_script_param, ":value", 4),
           (is_between, ":slot_no", slot_player_bot_type_1_wanted, slot_player_bot_type_4_wanted + 1),
           (is_between, ":value", 0, 2),
           (player_set_slot, ":player_no", ":slot_no", ":value"),
-        (else_try), 
+        (else_try),
           (eq, ":event_type", multiplayer_event_return_ccoop_difficulty),
           (store_script_param, ":value", 3),
           (assign, reg0, ":value"),
           #(display_message, "@returning difficulty as: {reg0}"),
-          (assign, "$g_multiplayer_ccoop_difficulty", ":value"),			  
+          (assign, "$g_multiplayer_ccoop_difficulty", ":value"),
         (else_try),
           (eq, ":event_type", multiplayer_event_ccoop_victory_message),
           (store_script_param, "$g_multiplayer_ccoop_difficulty_string_i", 3),
-          (start_presentation, "prsnt_multiplayer_ccoop_victory_message"),			  
+          (start_presentation, "prsnt_multiplayer_ccoop_victory_message"),
         (else_try),
           (eq, ":event_type", multiplayer_event_ccoop_return_of_the_king),
           (store_script_param, "$g_ccoop_king_troop", 3),
@@ -12211,16 +12211,16 @@ scripts = [
           (store_script_param, ":yvalue", 4),
           (store_script_param, ":zvalue", 5),
           (store_script_param, ":sound_id", 6),
-          
+
           (try_begin),
             (is_between, ":sound_id", 0, "snd_sounds_end"), # Valid sound
-            
+
             (set_fixed_point_multiplier, 100),
             (init_position, pos1),
             (position_set_x, pos1, ":xvalue"),
             (position_set_y, pos1, ":yvalue"),
             (position_set_z, pos1, ":zvalue"),
-            
+
             (play_sound_at_position, ":sound_id", pos1),
           (try_end),
         #INVASION MODE END
@@ -13327,12 +13327,12 @@ scripts = [
        (is_between, ":my_player_no", 0, multiplayer_max_possible_player_id),
        (player_get_agent_id, ":player_agent", ":my_player_no"),
        (eq, ":dead_agent_no", ":player_agent"),
-     
+
        (assign, ":show_respawn_counter", 0),
        (try_begin),
          (neq, "$g_multiplayer_game_type", multiplayer_game_type_battle),
          (assign, ":show_respawn_counter", 1),
-       (else_try),         
+       (else_try),
          (eq, "$g_multiplayer_player_respawn_as_bot", 1),
          (player_get_team_no, ":my_player_team", ":my_player_no"),
          (assign, ":is_found", 0),
@@ -13348,25 +13348,25 @@ scripts = [
          (eq, ":is_found", 1),
          (assign, ":show_respawn_counter", 1),
        (try_end),
-       
+
        (try_begin),
          (eq, "$g_multiplayer_game_type", multiplayer_game_type_siege),
-         (gt, "$g_multiplayer_number_of_respawn_count", 0),         
-     
+         (gt, "$g_multiplayer_number_of_respawn_count", 0),
+
          (ge, "$g_my_spawn_count", "$g_multiplayer_number_of_respawn_count"),
-     
+
          (multiplayer_get_my_player, ":my_player_no"),
          (player_get_team_no, ":my_player_team", ":my_player_no"),
 
          (this_or_next|eq, ":my_player_team", 0),
          (ge, "$g_my_spawn_count", 999),
-    
+
          (assign, "$g_show_no_more_respawns_remained", 1),
        (else_try),
          (assign, "$g_show_no_more_respawns_remained", 0),
        (try_end),
 
-       (eq, ":show_respawn_counter", 1),             
+       (eq, ":show_respawn_counter", 1),
 
        (start_presentation, "prsnt_multiplayer_respawn_time_counter"),
      (try_end),
@@ -18066,7 +18066,7 @@ scripts = [
 
       (store_div, ":enemy_morale_change", ":faction_morale_change", 3), #2/3x multipication (less than normal)
       (val_mul, ":enemy_morale_change", -2), #SB : change back to decrease, oops
-      
+
       (try_begin),
         (is_between, ":enemy_faction", kingdoms_begin, kingdoms_end), #make sure it's got an adjective
         (call_script, "script_change_faction_troop_morale", ":enemy_faction", ":enemy_morale_change", 0), #SB : script call
@@ -34042,7 +34042,7 @@ scripts = [
         (troop_is_wounded, "trp_player"),
         (troop_get_slot, ":limit", "$g_player_troop", slot_troop_renown), #this is for custom commander (allies won't follow companion's lead)
       (try_end),
-      (val_sub, ":limit", dplmc_command_renown_limit), 
+      (val_sub, ":limit", dplmc_command_renown_limit),
       (game_get_reduce_campaign_ai, ":bonus"),
       (val_mul, ":bonus", "$player_right_to_rule"),
       (val_add, ":limit", ":bonus"),
@@ -35509,7 +35509,7 @@ scripts = [
        (agent_is_defender, ":agent_no"),
        (agent_get_class, ":agent_class", ":agent_no"),
        (agent_get_troop_id, ":agent_troop", ":agent_no"),
-       
+
        (try_begin), #SB : khergit horse archer siege fix?
           (eq, "$g_dplmc_horse_speed", 0),
           (troop_is_guarantee_ranged, ":agent_troop"),
@@ -35519,7 +35519,7 @@ scripts = [
           ## TODO proficiency check to make sure they're suited to ranged (not throwing)?
        (try_end),
        (eq, ":agent_class", grc_archers),
-       
+
 
        (try_begin),
          (agent_slot_eq, ":agent_no", slot_agent_target_entry_point, 0),
@@ -39711,7 +39711,7 @@ scripts = [
        (else_try),
          (store_random_in_range,":spawn_point",villages_begin,villages_end), #spawn looters twice to have lots of them at the beginning
        (try_end),
-       
+
        (set_spawn_radius, 25),
        (spawn_around_party,":spawn_point","pt_looters"),
        (assign, ":spawned_party_id", reg0),
@@ -49532,16 +49532,16 @@ scripts = [
     (try_begin),
         (this_or_next|eq, ":groom", "trp_player"),
            (eq, ":bride", "trp_player"),
-           
+
         (try_begin),
             (eq, ":elopement", 0),
             (call_script, "script_start_wedding_cutscene", ":groom", ":bride"),
-        (else_try), #dckplmc: elope  
+        (else_try), #dckplmc: elope
              (assign, "$g_wedding_groom_troop", ":groom"),
              (assign, "$g_wedding_bride_troop", ":bride"),
              (assign, "$g_wedding_brides_dad_troop", "trp_nurse_for_lady"),
              (assign, "$g_wedding_bishop_troop", "trp_temporary_minister"),
-        
+
              (modify_visitors_at_site,"scn_wedding"),
              (reset_visitors,0),
              (set_visitor, 0, ":groom"),
@@ -49551,7 +49551,7 @@ scripts = [
              (set_jump_mission,"mt_wedding"),
              (jump_to_scene,"scn_wedding"),
              (change_screen_mission),
-         (try_end), 
+         (try_end),
     (try_end),
 	]),
 
@@ -56988,7 +56988,7 @@ scripts = [
             (store_random_in_range, ":item_no", "itm_wooden_stick", "itm_winged_mace"),
             (mission_tpl_entry_add_override_item, "mt_town_fight", ":entry_no", ":item_no"),
           (try_end),
-         
+
           (set_visitor, ":entry_no", ":walker_troop_id"),
         (try_end),
       (try_end),
@@ -68329,7 +68329,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     (try_end),
     (neq, ":companion_found", companions_end),
     ]),
-    
+
     #script_cf_troop_can_autoloot for autoloot selection, usually companion but can be spouse as well
   ("cf_troop_can_autoloot",
     [
@@ -72001,8 +72001,8 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
     ]),
    #INVASION MODE END
 
-   
-   
+
+
    #SB : update script moved here from triggers, so we can call from menu
    ("dplmc_version_checker",
    [
@@ -72022,8 +72022,8 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       # (store_mul, ":preversion_code", DPLMC_CURRENT_VERSION_CODE),
       # (troop_set_slot, dplmc_prev_employee, dplmc_slot_troop_affiliated, ":preversion_code"), #pre-set this to be copied over
       # (display_message, "@{reg0} vs {reg1}"),
-      
-      
+
+
       # #We need to fix all the slot values and troops in wrong parties (recruiters etc)
       # (assign, ":troop_no", dplmc_prev_employee),
       # (try_for_range, ":new_troop", dplmc_employees_begin, dplmc_employees_end),
@@ -72792,7 +72792,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_end),
       (try_end),
     (try_end),
-    
+
     (try_begin),
       (is_between, ":diplomacy_version_code", 170301, 190101),
       (display_log_message, "@Performing 2019 updates, thank you for your patience!", message_positive),
@@ -72811,7 +72811,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
    (assign, reg0, ":save_reg0"),#Revert register
 
    ]),
-   
+
    #updates info_pages dynamically with DPLMC settings
    ("dplmc_update_info_settings",
    [
@@ -72829,7 +72829,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
    (try_end),
    (str_store_string, s1, ":setting"),
    (add_info_page_note_from_sreg, ip_dplmc_gold_changes, 1, "str_setting_of", 0),
-   
+
    (try_begin),
      (eq, "$g_dplmc_ai_changes", DPLMC_AI_CHANGES_LOW),
      (assign, ":setting", "str_dplmc_tax_low"),
@@ -72844,14 +72844,14 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
    (try_end),
    (str_store_string, s1, ":setting"),
    (add_info_page_note_from_sreg, ip_dplmc_ai_changes, 1, "str_setting_of", 0),
-   
+
    # (str_store_string, s1, ":setting"), #PREJUDICE
    # (add_info_page_note_from_sreg, ip_courtship, 1, "str_setting_of", 0),
-   
+
    # (str_store_string, s1, ":setting"), #LORD RECYCLING?
    # (add_info_page_note_from_sreg, politics, 1, "str_setting_of", 0),
    ]),
-   
+
    #input : party_no, player's renown assuming it's past the threshold for
    #output : party_no's temp_slot_01
    ("dplmc_encounter_calculate_player_commanding",
@@ -72898,7 +72898,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (display_message, "@{s0} will be under your command", ":color"),
     (try_end),
    ]),
-   
+
    #script_dplmc_count_item_required_for_court
    #input : troop_no, amount to remove
    #output : reg0 and reg1
@@ -72947,7 +72947,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (assign, reg1, ":tools_amount"),
     (try_end),
    ]),
-   
+
   # script_dplmc_get_court_guard_troop
   # Input: arg1 = center_no
   # Output: reg0, guard troop id
@@ -72991,7 +72991,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (try_end),
       (assign, reg0, ":guard_troop")
     ]),
-      
+
   # script_dplmc_enter_court_aux
   # Input: arg1 = center_no, arg2 = party to select from (see below scripts for variation)
   # Output: none
@@ -73026,7 +73026,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (val_min, ":num_stacks", 16),
         # (assign, ":player_entry", 0),
       (try_end),
-      
+
       (try_for_range, ":i_stack", 0, ":num_stacks"),
         (party_stack_get_troop_id, ":stack_troop",":party_no",":i_stack"),
         (mission_tpl_entry_clear_override_items, "mt_visit_town_castle", ":cur_pos"),
@@ -73037,12 +73037,12 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
 
       #SB : todo place player at "middle" instead of doors if ruler
       (set_jump_entry, 0),
-      
+
       (jump_to_scene,":castle_scene"),
       (scene_set_slot, ":castle_scene", slot_scene_visited, 1),
       (change_screen_mission),
   ]),
-  
+
 
   # script_enter_court_male
   # Input: arg1 = center_no
@@ -73143,8 +73143,8 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
   (try_end),
   (party_get_num_companion_stacks, reg0, ":party_no_to_collect_heroes"),
 ]),
-    
-    #input : party_no (of the recruiter), 
+
+    #input : party_no (of the recruiter),
     #        amount to be updated (-1 for cancel, 0 for update)
     #output : s10
     ("dplmc_set_recruiter_extra_text", [
@@ -73177,13 +73177,13 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (try_end),
       (party_set_extra_text, ":party_no", s10),
     ]),
-    
+
 
     #input : $current_town, page index
     ("dplmc_mayor_wealth_comparison", [
       (store_script_param_1, ":this_center"),
       (store_script_param_2, ":page_no"),
-      
+
       # (assign, ":wealthiest_town_production", 0),
       (assign, ":poorer_centers", 0),
       (assign, ":richer_centers", 0),
@@ -73226,7 +73226,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (try_for_range, ":center_no", towns_begin, towns_end),
         (party_set_slot, ":center_no", slot_party_temp_slot_1, 0),
       (try_end),
-      
+
       #prep strings
       (try_begin), #richest
         (eq, ":wealthiest_center", ":this_center"),
@@ -73252,12 +73252,12 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (try_begin), #known to be
           (is_between, ":page_no", 0, 2),
           (str_store_string, s2, "str_mayor_wealth_rank_2"),
-        (else_try), #believed to 
+        (else_try), #believed to
           (str_store_string, s2, "str_mayor_wealth_rank_5"),
         (try_end),
       (try_end),
       (str_store_party_name, s3, ":this_center"),
-      
+
       #rank doesn't mean much without data
       (try_begin),
         (eq, ":wealthiest_town_production", 0),
@@ -73322,7 +73322,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (quest_set_slot, "qst_troublesome_bandits", slot_quest_delegate_level, 20),
       (quest_set_slot, "qst_train_peasants_against_bandits", slot_quest_delegate_level, 20),
     ]),
-    
+
     #calculate based on # centers & game difficulty & faction sliders
     # reports {reg0} (denars lost), {reg1} (% lost, not marginal tax ineff)
     ("cf_dplmc_calculate_tax_inefficiency", [
@@ -73360,7 +73360,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       #original condition here
       (gt, ":num_owned", ":needed"),
       (gt, ":tax_total", 0),
-      
+
       (store_sub, ":ratio_lost", ":num_owned", ":needed"),
       (val_mul, ":ratio_lost", ":ratio"),
       (val_min, ":ratio_lost", 65),
@@ -73414,7 +73414,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         (val_mul, ":centralization", -5),
         (val_add, ":percent", ":centralization"),
       (try_end),
-      
+
       (try_begin),
         (gt, ":ratio_lost", 0),
         (store_mul, ":tax_lost", ":tax_total", ":ratio_lost"),
@@ -73430,7 +73430,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       (assign, reg0, ":tax_lost"),
       (assign, reg1, ":percent"),
     ]),
-    
+
   ("dplmc_init_faction_gender_ratio", [
     (store_script_param, ":reset_troops", 1),
     (try_begin), #SB : reset this for non-native
@@ -73472,12 +73472,12 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         # (try_begin),
           # (eq, ":itp", itp_type_goods),
           # # (item_get_food_quality),
-          
+
         # (try_end),
       # (try_end),
       # (eq, ":is_contraband", 1),
     # ]),
-    
+
     # #call this once at game start?
     # #script_cf_dplmc_disguise_evaluate_equip_set
     # #input : party_no, troop_no
@@ -73490,7 +73490,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       # (store_script_param, ":troop_end", 3),
       # (assign, ":is_contraband", 0),
       # # (item_set_slot, ":item_no", slot_item_ccoop_has_ammo, 0),
-      
+
       # (try_for_range, ":troop_no", ":troop_start", ":troop_end"), #search
         # (troop_get_inventory_capacity, ":inv_cap", ":troop_no"),
         # (try_for_range, ":item_slot", 0, ":inv_cap"),
@@ -73502,8 +73502,8 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         # (try_end),
       # (try_end),
     # ]),
-    
-    
+
+
     # #script_dplmc_disguise_evaluate_inventory
     # #input : party_no, troop_no
     # #output : reg0 (total risk), reg1 (number of contraband, marked by temp slot?)
@@ -73512,7 +73512,7 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
       # (store_script_param, ":troop_no", 2), #should be trp_player
       # (store_script_param, ":disguise_type", 3), #$sneaked_into_town
       # # (store_script_param, ":enter_exit", 4), #$sneaked_into_town
-      
+
       # #define some cutoffs
       # (try_begin),
         # (eq, ":disguise_type", disguise_pilgrim),
@@ -73541,21 +73541,21 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         # (assign, ":cutoff", 500),
         # (assign, ":max_value", 1250),
       # (try_end),
-      
+
       # #apply skill bonus
       # (store_skill_level, ":trade", ":troop_no", "skl_trade"),
       # (store_skill_level, ":persuasion", ":troop_no", "skl_persuasion"),
       # (store_skill_level, ":inv_manage", ":troop_no", "skl_inventory_management"),
-      
+
       # (val_mul, ":trade", 5), #bartering #0-50
       # (val_add, ":trade", ":persuasion"), # 0-60
       # (val_add, ":cutoff", ":trade"),
-      
+
       # (val_mul, ":inv_manage", 3), #packing/hiding #0-30
       # (val_add, ":inv_manage", ":persuasion"), #0-30-40
       # (val_mul, ":max_value", 15), #0-450-600
       # (val_add, ":max_value", ":inv_manage"),
-      
+
       # (assign, ":total_value", 0),
       # (troop_get_inventory_capacity, ":inv_cap", ":troop_no"),
       # (try_for_range, ":slot_no", 0, ":inv_cap"), #count equip
@@ -73565,11 +73565,11 @@ Born at {s43}^Contact in {s44} of the {s45}.^\
         # (call_script, "script_dplmc_get_item_value_with_imod", ":item_no", ":imod_no"),
         # (val_add, ":total_value", reg0),
         # (store_div, ":item_value", reg0, 100), #scaled down
-        
+
         # (try_begin),
         # (try_end),
       # (try_end),
-      
+
       # (try_begin),
         # (gt, ":total_value", ":max_value"),
       # (try_end),
