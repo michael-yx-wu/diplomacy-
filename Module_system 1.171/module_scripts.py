@@ -15774,15 +15774,15 @@ scripts = [
   # INPUT: none
   ("update_party_creation_random_limits",
     [
-      (store_random_in_range, ":max_party_size", 0, 35)
+      (store_random_in_range, ":max_party_size", 0, 35),
 
       # Maybe reroll if max_party_size > 25
       (try_begin),
-        (ge, ":max_party_size", 25)
-        (store_random_in_range, ":should_reroll", 0, 2)
-        (eq, ":should_reroll", 1)
-        (store_random_in_range, ":max_party_size", 0, 35)
-      (try_end)
+        (ge, ":max_party_size", 25),
+        (store_random_in_range, ":should_reroll", 0, 2),
+        (eq, ":should_reroll", 1),
+        (store_random_in_range, ":max_party_size", 0, 35),
+      (try_end),
 
       (set_party_creation_random_limits, 0, 35),
   ]),
