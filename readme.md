@@ -2,6 +2,8 @@
 
 ## Compilation
 
+Recommended to use a separate python environment with something like virtualenv.
+
 ```
-> cd Module_system\ 1.171; python compile.py
+> cd Module_system\ 1.171; ./build_module.sh
 ```
