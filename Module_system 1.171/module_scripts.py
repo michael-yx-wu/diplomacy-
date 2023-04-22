@@ -34556,7 +34556,10 @@ scripts = [
   # Output: none
   ("cf_enter_center_location_bandit_check",
     [
+      # Disable the check -- both of these cannot be true
+      (eq, "$town_nighttime", 0),
       (neq, "$town_nighttime", 0),
+
       (party_slot_ge, "$current_town", slot_center_has_bandits, 1),
       (eq, "$g_defending_against_siege", 0),#Skip if the center is under siege (because of resting)
       (eq, "$sneaked_into_town", disguise_none),#Skip if sneaked
