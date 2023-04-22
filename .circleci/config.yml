@@ -29,6 +29,3 @@ jobs:
             . ENV/bin/activate
             cd Module_system\ 1.171
             ./build_module.sh
-
-      - store_artifacts:
-          path: ./build
